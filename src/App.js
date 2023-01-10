@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 
 function App() {
   const [addItem, setAddItem] = useState([]);
+
   const addNote = (note) => {
     // alert("i am clicked")
     setAddItem((prevData) => {
@@ -16,11 +17,11 @@ function App() {
   };
 
   const onDelete = (id) => {
-    setAddItem((oldData) => {
+    setAddItem((oldData) =>
       oldData.filter((currentdata, index) => {
         return index !== id;
-      });
-    });
+      })
+    );
   };
 
   return (
@@ -28,17 +29,19 @@ function App() {
       <Navbar />
       <CreateNotes passNote={addNote} />
 
-      {addItem.map((val, index) => {
-        return (
-          <Notes
-            key={index}
-            id={index}
-            title={val.title}
-            content={val.content}
-            deleteItem={onDelete}
-          />
-        );
-      })}
+      <div className="lg:flex lg:flex-wrap lg:justify-start">
+        {addItem.map((val, index) => {
+          return (
+            <Notes
+              key={index}
+              id={index}
+              title={val.title}
+              content={val.content}
+              deleteItem={onDelete}
+            />
+          );
+        })}
+      </div>
     </>
   );
 }
